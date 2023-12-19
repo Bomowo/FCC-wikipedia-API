@@ -16,7 +16,8 @@ function App() {
           console.log(response)
           setData({
             title: response.query.search[0].title,
-            snippet: response.query.search[0].snippet
+            snippet: response.query.search[0].snippet,
+            link: 'https://en.wikipedia.org/?curid=' + response.query.search[0].pageid
           })
         })
     .catch(function(error){console.log(error);});
@@ -24,9 +25,14 @@ function App() {
 
   return (
     <>
-      <h1 onClick={getData}>Hello World !</h1>
-      <h2>{data&&data.title}</h2>
-      <p>{data&&data.snippet.replace(regex, "")+'...'}</p>
+      <h1 onClick={getData}>FCC WikiMedia API</h1>
+      <button><a href='https://en.wikipedia.org/wiki/Special:Random' target='_blank' rel="noreferrer">Get Random Article</a></button>
+      {data&&<a href={data.link} target='_blank' rel="noreferrer">
+        <h2>{data.title}</h2>
+        <p>{data.snippet.replace(regex, "")+'...'}</p>
+      </a>}
+
+
     </>
   )
 }
